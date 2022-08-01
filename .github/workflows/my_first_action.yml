@@ -1,7 +1,7 @@
 name: my-first-action
 on: [push]
 jobs:
-  check-bats-version:
+  setup-python-hello-job:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -10,3 +10,5 @@ jobs:
           python-version: '3.7' # Version range or exact version of a Python version to use, using SemVer's version range syntax
           architecture: 'x64' # optional x64 or x86. Defaults to x64 if not specified
       - run: python test.py
+      - run: echo $HOME
+      - run: pip install -i requirements.txt
