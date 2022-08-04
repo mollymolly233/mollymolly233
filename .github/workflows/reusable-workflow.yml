@@ -19,13 +19,13 @@ on:
     outputs:
       output1:
         description: "The first job output"
-        value: ${{ jobs.my_job.outputs.output1 }}
+        value: ${{ jobs.echo-params-return-outputs.outputs.output1 }}
       output2:
         description: "The second job output"
-        value: ${{ jobs.my_job.outputs.output2 }}
+        value: ${{ jobs.echo-params-return-outputs.outputs.output2 }}
 
 jobs:
-  my_job:
+  echo-params-return-outputs:
     runs-on: ubuntu-latest
     # 定义job的输出，workflow_call输出会映射，作为workflow的输出
     outputs:
@@ -34,5 +34,4 @@ jobs:
     steps:
       # 引用secrets中的变量
       - run: |
-          echo ${{ secrets.FIRST_SECRET }}
           echo ${{ inputs.username }}
