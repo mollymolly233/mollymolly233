@@ -11,16 +11,16 @@ on:
         type: string
     
     secrets:
-      envPAT:
+      FIRST_SECRET:
         required: true
-        description: 'The envPAT passed from the caller workflow'
+        description: 'The FIRST_SECRET passed from the caller workflow'
         
     # Map the workflow outputs to job outputs
     outputs:
-      workflow_output1:
+      output1:
         description: "The first job output"
         value: ${{ jobs.my_job.outputs.output1 }}
-      workflow_output2:
+      output2:
         description: "The second job output"
         value: ${{ jobs.my_job.outputs.output2 }}
 
@@ -34,5 +34,5 @@ jobs:
     steps:
       # 引用secrets中的变量
       - run: |
-          echo ${{ secrets.envPAT }}
+          echo ${{ secrets.FIRST_SECRET }}
           echo ${{ inputs.username }}
