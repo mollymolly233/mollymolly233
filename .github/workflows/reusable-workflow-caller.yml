@@ -15,4 +15,4 @@ jobs:
     with: 
       username: mona
     secrets:
-      envPAT: ${{ secrets.envPAT }}
+      envPAT: ${{ secrets.FIRST_SECRET }}
