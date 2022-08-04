@@ -15,24 +15,35 @@ on:
         required: true
         description: 'The FIRST_SECRET passed from the caller workflow'
         
-    # Map the workflow outputs to job outputs
+    # 映射job的变量，到workflow的变量
     outputs:
       output1:
         description: "The first job output"
-        value: ${{ jobs.called-jobs.outputs.output1 }}
+        value: ${{ jobs.called-job1.outputs.output1 }}
       output2:
         description: "The second job output"
-        value: ${{ jobs.called-jobs.outputs.output2 }}
-
+        value: ${{ jobs.called-job1.outputs.output2 }}
+      output3:
+        description: "The third job output"
+        value: ${{ jobs.called-job2.outputs.output1 }}
 jobs:
-  called-jobs:
+  called-job1:
     runs-on: ubuntu-latest
     # 定义job的输出，workflow_call输出会映射，作为workflow的输出
     outputs:
-      output1: called job output 1
-      output2: called job output 2
+      output1: called job output1
+      output2: called job output2
     steps:
       # 引用secrets中的变量
       - name: called-step
         run: |
           echo ${{ inputs.username }}
+  called-job2:
+    runs-on: ubuntu-latest
+    outputs:
+      output1: called job2 output1
+    steps:
+      - run: |
+          echo called job2 step: do sth else
+          
+    
