@@ -1,0 +1,38 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the workflow will run
+on:
+  workflow_call:
+    inputs:
+      username:
+        required: true
+        type: string
+    
+    secrets:
+      envPAT:
+        required: true
+        description: 'The envPAT passed from the caller workflow'
+        
+    # Map the workflow outputs to job outputs
+    outputs:
+      workflow_output1:
+        description: "The first job output"
+        value: ${{ jobs.my_job.outputs.output1 }}
+      workflow_output2:
+        description: "The second job output"
+        value: ${{ jobs.my_job.outputs.output2 }}
+
+jobs:
+  my_job:
+    runs-on: ubuntu-latest
+    # 定义job的输出，workflow_call输出会映射，作为workflow的输出
+    outputs:
+      output1: my job output 1
+      output2: my job output 2
+    steps:
+      # 引用secrets中的变量
+      - run: |
+          echo ${{ secrets.envPAT }}
+          echo ${{ inputs.username }}
