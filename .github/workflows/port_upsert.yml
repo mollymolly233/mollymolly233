@@ -1,4 +1,4 @@
-name: UPSERT workflow
+name: Port UPSERT workflow
 on:
   workflow_dispatch:
     inputs:
@@ -16,26 +16,25 @@ jobs:
       - name: UPSERT Entity
         uses: port-labs/port-github-action@v1
         with:
-          identifier: some_identifier
-          title: Some Title
-          team: []
+          identifier: deployment_1
+          title: New Deployment Title
           icon: DefaultBlueprint
           blueprint: deployment
           properties: |-
             {
-              "triggeringActor": "string",
+              "triggeringActor": "SomeTrigerActor",
               "status": "completed",
-              "link": "https://example.com",
-              "commitSha": "string",
-              "deployBranch": "string",
-              "deployBranchUrl": "https://example.com"
+              "link": "http://www.baidu.com",
+              "commitSha": "stringlalalalalcommitSha",
+              "deployBranch": "master",
+              "deployBranchUrl": "http://www.baidu.com"
             }
           relations: |-
             {
-              "service": "related_entity_identifier"
+              "service": "baidu-service"
             }
-          clientId: ${{ secrets.CLIENT_ID }}
-          clientSecret: ${{ secrets.CLIENT_SECRET }}
+          clientId: ${{ secrets.PORT_CLIENT_ID }}
+          clientSecret: ${{ secrets.PORT_CLIENT_SECRET }}
           operation: UPSERT
           runId: ${{fromJson(inputs.port_payload).context.runId}}
       - name: Echo a message
@@ -43,8 +42,8 @@ jobs:
       - name: Create a log message
         uses: port-labs/port-github-action@v1
         with:
-          clientId: ${{ secrets.CLIENT_ID }}
-          clientSecret: ${{ secrets.CLIENT_SECRET }}
+          clientId: ${{ secrets.PORT_CLIENT_ID }}
+          clientSecret: ${{ secrets.PORT_CLIENT_SECRET }}
           operation: PATCH_RUN
           runId: ${{fromJson(inputs.port_payload).context.runId}}
           logMessage: An example of a log message
